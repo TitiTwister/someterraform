@@ -1,4 +1,4 @@
-resource "outscale_nat_service" "home_eu_natgw" {
+resource "outscale_nat_service" "main_vpc_natgw" {
   subnet_id    = outscale_subnet.dmz_subnet.subnet_id
   public_ip_id = outscale_public_ip.nat_public_ip.public_ip_id
   tags {

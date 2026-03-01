@@ -1,4 +1,4 @@
-resource "outscale_net" "home_eu" {
+resource "outscale_net" "main_vpc" {
   ip_range = var.vpc_cidr
   tags {
     key   = "Name"
@@ -7,7 +7,7 @@ resource "outscale_net" "home_eu" {
 }
 
 resource "outscale_subnet" "dmz_subnet" {
-  net_id   = outscale_net.home_eu.net_id
+  net_id   = outscale_net.main_vpc.net_id
   ip_range = var.dmz_subnet
   tags {
     key   = "Name"
@@ -16,7 +16,7 @@ resource "outscale_subnet" "dmz_subnet" {
 }
 
 resource "outscale_subnet" "tools_subnet" {
-  net_id   = outscale_net.home_eu.net_id
+  net_id   = outscale_net.main_vpc.net_id
   ip_range = var.tools_subnet
   tags {
     key   = "Name"
@@ -25,7 +25,7 @@ resource "outscale_subnet" "tools_subnet" {
 }
 
 resource "outscale_subnet" "k8s_subnet" {
-  net_id   = outscale_net.home_eu.net_id
+  net_id   = outscale_net.main_vpc.net_id
   ip_range = var.k8s_subnet
   tags {
     key   = "Name"
