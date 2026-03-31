@@ -55,6 +55,12 @@ variable "ovpn_ip" {
   default     = "10.0.0.254" 
 }
 
+variable "cold_vault_ip" {
+  description = "Private ip for OpenVPN VM"
+  type        = string
+  default     = "10.0.0.253"
+}
+
 variable "rocky_10_ami" {
   description = "AMI id for rocky 10 image"
   type        = string
@@ -86,4 +92,16 @@ variable "k8s_worker_ips" {
   description = "List of private IPs for K8s worker VMs"
   type        = list(string)
   default     = ["10.0.8.200", "10.0.8.201", "10.0.8.202"]
+}
+
+variable "cold_vault_volume_size" {
+  description = "Size in GB for cold vault data volume"
+  type        = number
+  default     = 50
+}
+
+variable "cold_vault_volume_iops" {
+  description = "IOPS for cold vault io1 volume"
+  type        = number
+  default     = 300
 }
