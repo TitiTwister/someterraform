@@ -61,6 +61,18 @@ variable "cold_vault_ip" {
   default     = "10.0.0.253"
 }
 
+variable "haproxy_ip" {
+  description = "Private ip for HAPROXY DMZ VM"
+  type        = string
+  default     = "10.0.0.200"
+}
+
+variable "prometheus_ip" {
+  description = "Private ip for HAPROXY DMZ VM"
+  type        = string
+  default     = "10.0.0.200"
+}
+
 variable "rocky_10_ami" {
   description = "AMI id for rocky 10 image"
   type        = string
@@ -80,6 +92,7 @@ variable "medium_vm_type" {
 }
 
 variable "dmz_vpn_key" {}
+variable "dmz_other_key" {}
 variable "server_key" {}
 
 variable "k8s_master_ips" {
