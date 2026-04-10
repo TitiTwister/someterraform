@@ -11,7 +11,6 @@ resource "outscale_security_group" "sg_tools" {
   }
 }
 
-# SSH from VPN only
 resource "outscale_security_group_rule" "tools_ssh" {
   flow              = "Inbound"
   security_group_id = outscale_security_group.sg_tools.security_group_id
@@ -20,5 +19,28 @@ resource "outscale_security_group_rule" "tools_ssh" {
     to_port_range   = "22"
     ip_protocol     = "tcp"
     ip_ranges       = ["${var.ovpn_ip}/32"]
+  }
+}
+
+# Grafana and Prometheus port redirection from HAPROXY
+resource "outscale_security_group_rule" "tools_grafana" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_tools.security_group_id
+  rules {
+    from_port_range = "3000"
+    to_port_range   = "3000"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.haproxy_ip}/32"]
+  }
+}
+
+resource "outscale_security_group_rule" "tools_prometheus" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_tools.security_group_id
+  rules {
+    from_port_range = "9090"
+    to_port_range   = "9090"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.haproxy_ip}/32"]
   }
 }

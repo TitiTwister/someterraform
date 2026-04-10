@@ -9,7 +9,7 @@ resource "outscale_vm" "vm_haproxy" {
 
   user_data = base64encode(<<-EOT
     #!/bin/bash
-    hostnamectl set-hostname ${var.project_name}_haproxy
+    hostnamectl set-hostname ${var.project_name}-haproxy
     dnf install epel-release -y
   EOT
   )

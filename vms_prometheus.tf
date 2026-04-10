@@ -1,6 +1,5 @@
 
 resource "outscale_vm" "vm_prometheus" {
-  count = length(local.k8s_workers)
 
   image_id           = var.rocky_10_ami
   vm_type            = var.casual_vm_type
@@ -24,7 +23,7 @@ resource "outscale_vm" "vm_prometheus" {
   }
 }
 
-resource "outscale_nic" "prometheus_nics" {
+resource "outscale_nic" "prometheus_nic" {
 
   subnet_id          = outscale_subnet.tools_subnet.subnet_id
   security_group_ids = [outscale_security_group.sg_tools.security_group_id]
@@ -34,4 +33,3 @@ resource "outscale_nic" "prometheus_nics" {
     private_ip = var.prometheus_ip
   }
 }
-
