@@ -32,6 +32,17 @@ resource "outscale_security_group_rule" "haproxy_http_alt" {
   }
 }
 
+resource "outscale_security_group_rule" "haproxy_alertmanager" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_haproxy.security_group_id
+  rules {
+    from_port_range = "9093"
+    to_port_range   = "9093"
+    ip_protocol     = "tcp"
+    ip_ranges       = var.allowed_cidr
+  }
+}
+
 resource "outscale_security_group_rule" "haproxy_node_exporter" {
   flow              = "Inbound"
   security_group_id = outscale_security_group.sg_haproxy.security_group_id
