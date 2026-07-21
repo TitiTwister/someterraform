@@ -17,6 +17,12 @@ variable "osc_region" {
 variable "project_name" {
   description = "Project name"
   type        = string
+  default     = "home_vpc"
+}
+
+variable "dns_project_name" {
+  description = "Project name"
+  type        = string
   default     = "home-vpc"
 }
 
@@ -67,16 +73,34 @@ variable "haproxy_ip" {
   default     = "10.0.0.200"
 }
 
-variable "prometheus_ip" {
-  description = "Private ip for HAPROXY DMZ VM"
+variable "ns_ips" {
+  description = "List of private IPs for DNS VMs"
+  type        = list(string)
+  default     = ["10.0.100.11", "10.0.100.12"]
+}
+
+variable "ca_1_ip" {
+  description = "Private ip for CA ISSUER VM"
   type        = string
-  default     = "10.0.0.200"
+  default     = "10.0.100.5"
+}
+
+variable "prometheus_ip" {
+  description = "Private ip for PROMETHEUS VM"
+  type        = string
+  default     = "10.0.100.10"
 }
 
 variable "rocky_10_ami" {
   description = "AMI id for rocky 10 image"
   type        = string
   default     = "ami-ebce0925"
+}
+
+variable "small_vm_type" {
+  description = "VM type for casual usage"
+  type        = string
+  default     = "tinav7.c1r2p2"
 }
 
 variable "casual_vm_type" {
@@ -115,6 +139,17 @@ variable "cold_vault_volume_size" {
 
 variable "cold_vault_volume_iops" {
   description = "IOPS for cold vault io1 volume"
+  type        = number
+  default     = 300
+}
+variable "ca_1_volume_size" {
+  description = "Size in GB for ca issuer data volume"
+  type        = number
+  default     = 50
+}
+
+variable "ca_1_volume_iops" {
+  description = "IOPS for cold ca issuer io1 volume"
   type        = number
   default     = 300
 }
