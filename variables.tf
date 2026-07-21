@@ -87,8 +87,14 @@ variable "ca_1_ip" {
 
 variable "prometheus_ip" {
   description = "Private ip for PROMETHEUS VM"
+  type        = list(string)
+  default     = ["10.0.100.20", "10.0.100.21"]
+}
+
+variable "grafana_ip" {
+  description = "Private ip for GRAFANA VM"
   type        = string
-  default     = "10.0.100.10"
+  default     = "10.0.100.22"
 }
 
 variable "rocky_10_ami" {
@@ -142,6 +148,7 @@ variable "cold_vault_volume_iops" {
   type        = number
   default     = 300
 }
+
 variable "ca_1_volume_size" {
   description = "Size in GB for ca issuer data volume"
   type        = number
@@ -153,3 +160,16 @@ variable "ca_1_volume_iops" {
   type        = number
   default     = 300
 }
+
+variable "prom_volume_size" {
+  description = "Size in GB for prometheus data volumes"
+  type        = number
+  default     = 50
+}
+
+variable "prom_volume_iops" {
+  description = "IOPS for prometheus io1 volume"
+  type        = number
+  default     = 1000
+}
+

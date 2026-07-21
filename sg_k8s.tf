@@ -30,6 +30,6 @@ resource "outscale_security_group_rule" "k8s_node_exporter" {
     from_port_range = "9100"
     to_port_range   = "9100"
     ip_protocol     = "tcp"
-    ip_ranges       = ["${var.prometheus_ip}/32"]
+    ip_ranges       = ["${var.prometheus_ip[0]}/32", "${var.prometheus_ip[1]}/32"]
   }
 }
