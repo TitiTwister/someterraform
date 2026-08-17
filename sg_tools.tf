@@ -55,3 +55,15 @@ resource "outscale_security_group_rule" "tools_alertmanager" {
     ip_ranges       = ["${var.haproxy_ip}/32"]
   }
 }
+
+resource "outscale_security_group_rule" "tools_dns" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_tools.security_group_id
+  rules {
+    from_port_range = "53"
+    to_port_range   = "53"
+    ip_ranges       = ["${var.dmz_subnet}", "${var.k8s_subnet}"]
+  }
+}
+
+
