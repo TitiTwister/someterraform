@@ -22,6 +22,17 @@ resource "outscale_security_group_rule" "tools_ssh" {
   }
 }
 
+resource "outscale_security_group_rule" "tools_step_ca" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_tools.security_group_id
+  rules {
+    from_port_range = "443"
+    to_port_range   = "443"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.dmz_subnet}", "${var.k8s_subnet}"]
+  }
+}
+
 # Grafana and Prometheus port redirection from HAPROXY
 resource "outscale_security_group_rule" "tools_grafana" {
   flow              = "Inbound"
