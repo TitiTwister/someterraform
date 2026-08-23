@@ -21,7 +21,7 @@ resource "outscale_vm" "k8s_masters" {
 
   user_data = base64encode(<<-EOT
     #!/bin/bash
-    hostnamectl set-hostname ${local.k8s_masters[count.index].name}
+    hostnamectl set-hostname ${var.dns_project_name}-${local.k8s_masters[count.index].name}
     dnf install epel-release -y
   EOT
   )
