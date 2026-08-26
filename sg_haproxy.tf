@@ -59,7 +59,7 @@ resource "outscale_security_group_rule" "haproxy_postgre" {
   security_group_id = outscale_security_group.sg_haproxy.security_group_id
   rules {
     from_port_range = "5432"
-    to_port_range   = "5432"
+    to_port_range   = "5433"
     ip_protocol     = "tcp"
     ip_ranges       = ["${var.k8s_subnet}"]
   }
