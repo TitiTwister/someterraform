@@ -61,6 +61,12 @@ variable "ovpn_ip" {
   default     = "10.0.0.254" 
 }
 
+variable "wireguard_ip" {
+  description = "Private ip for Wireguard VM"
+  type        = string
+  default     = "10.0.0.250"
+}
+
 variable "cold_vault_ip" {
   description = "Private ip for OpenVPN VM"
   type        = string
@@ -125,6 +131,12 @@ variable "dmz_vpn_key" {}
 variable "dmz_other_key" {}
 variable "server_key" {}
 
+variable "postgresql_ips" {
+  description = "List of private IPs for PostgreSQL VMs in K8S subnet"
+  type        = list(string)
+  default     = ["10.0.8.4", "10.0.8.5", "10.0.8.6"]
+}
+
 variable "k8s_master_ips" {
   description = "List of private IPs for K8s master VMs"
   type        = list(string)
@@ -171,5 +183,17 @@ variable "prom_volume_iops" {
   description = "IOPS for prometheus io1 volume"
   type        = number
   default     = 1000
+}
+
+variable "postgresql_volume_size" {
+  description = "Size in GB for postgresql data volumes"
+  type        = number
+  default     = 200
+}
+
+variable "postgresql_volume_iops" {
+  description = "IOPS for postgresql io1 volume"
+  type        = number
+  default     = 5000
 }
 
