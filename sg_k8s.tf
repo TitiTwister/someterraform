@@ -55,3 +55,14 @@ resource "outscale_security_group_rule" "postgresql_postgre" {
     ip_ranges       = ["${var.haproxy_ip}/32"]
   }
 }
+
+resource "outscale_security_group_rule" "postgresql_patroni" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_k8s.security_group_id
+  rules {
+    from_port_range = "8008"
+    to_port_range   = "8008"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.haproxy_ip}/32"]
+  }
+}
