@@ -66,3 +66,13 @@ resource "outscale_security_group_rule" "postgresql_patroni" {
     ip_ranges       = ["${var.haproxy_ip}/32"]
   }
 }
+resource "outscale_security_group_rule" "postgresql_exporter" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_k8s.security_group_id
+  rules {
+    from_port_range = "9187"
+    to_port_range   = "9187"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.prometheus_ip[0]}/32", "${var.prometheus_ip[1]}/32"]
+  }
+}
