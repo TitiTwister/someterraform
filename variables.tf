@@ -140,13 +140,19 @@ variable "postgresql_ips" {
 variable "k8s_master_ips" {
   description = "List of private IPs for K8s master VMs"
   type        = list(string)
-  default     = ["10.0.8.100", "10.0.8.101", "10.0.8.102"]
+  default     = ["10.0.8.11", "10.0.8.12", "10.0.8.13"]
 }
 
 variable "k8s_worker_ips" {
   description = "List of private IPs for K8s worker VMs"
   type        = list(string)
   default     = ["10.0.8.200", "10.0.8.201", "10.0.8.202"]
+}
+
+variable "k8s_controller_ip" {
+  description = "Private IP for K8s controller VM"
+  type        = string
+  default     = "10.0.8.10"
 }
 
 variable "cold_vault_volume_size" {
@@ -195,5 +201,17 @@ variable "postgresql_volume_iops" {
   description = "IOPS for postgresql io1 volume"
   type        = number
   default     = 5000
+}
+
+variable "k8s_worker_volume_size" {
+  description = "Size in GB for k8s worker data volumes"
+  type        = number
+  default     = 200
+}
+
+variable "k8s_worker_volume_type" {
+  description = "Volume type for k8s worker data volumes"
+  type        = string
+  default     = "gp2"
 }
 
