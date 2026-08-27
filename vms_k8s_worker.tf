@@ -43,3 +43,24 @@ resource "outscale_nic" "k8s_workers_nics" {
     private_ip = local.k8s_workers[count.index].ip
   }
 }
+
+resource "outscale_volume" "k8s_worker_data" {
+  count = length(local.k8s_workers)
+
+  subregion_name = "${var.osc_region}a"
+  size           = var.k8s_worker_volume_size
+  volume_type    = var.k8s_worker_volume_type
+
+  tags {
+    key   = "Name"
+    value = "${var.project_name}_${local.k8s_workers[count.index].name}_data"
+  }
+}
+
+resource "outscale_volume_link" "k8s_worker_data_link" {
+  count = length(local.k8s_workers)
+
+  device_name = "/dev/xvdb"
+  volume_id   = outscale_volume.k8s_worker_data[count.index].volume_id
+  vm_id       = outscale_vm.k8s_workers[count.index].vm_id
+}
