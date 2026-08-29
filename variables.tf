@@ -58,7 +58,7 @@ variable "allowed_cidr" {
 variable "ovpn_ip" {
   description = "Private ip for OpenVPN VM"
   type        = string
-  default     = "10.0.0.254" 
+  default     = "10.0.0.254"
 }
 
 variable "wireguard_ip" {
@@ -153,6 +153,18 @@ variable "k8s_controller_ip" {
   description = "Private IP for K8s controller VM"
   type        = string
   default     = "10.0.8.10"
+}
+
+variable "metallb_parking_ip" {
+  description = "Private IP for MetalLB parking VM"
+  type        = string
+  default     = "10.0.8.230"
+}
+
+variable "metallb_parking_secondary_ips" {
+  description = "Secondary private IPs for MetalLB parking VM"
+  type        = list(string)
+  default     = ["10.0.8.231", "10.0.8.232", "10.0.8.233", "10.0.8.234", "10.0.8.235"]
 }
 
 variable "cold_vault_volume_size" {
