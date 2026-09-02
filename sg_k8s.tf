@@ -76,3 +76,36 @@ resource "outscale_security_group_rule" "postgresql_exporter" {
     ip_ranges       = ["${var.prometheus_ip[0]}/32", "${var.prometheus_ip[1]}/32"]
   }
 }
+
+resource "outscale_security_group_rule" "k8s_http" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_k8s.security_group_id
+  rules {
+    from_port_range = "80"
+    to_port_range   = "80"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.haproxy_ip}/32"]
+  }
+}
+
+resource "outscale_security_group_rule" "k8s_https" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_k8s.security_group_id
+  rules {
+    from_port_range = "443"
+    to_port_range   = "443"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.haproxy_ip}/32"]
+  }
+}
+
+resource "outscale_security_group_rule" "k8s_nodeports" {
+  flow              = "Inbound"
+  security_group_id = outscale_security_group.sg_k8s.security_group_id
+  rules {
+    from_port_range = "30800"
+    to_port_range   = "32767"
+    ip_protocol     = "tcp"
+    ip_ranges       = ["${var.haproxy_ip}/32"]
+  }
+}
