@@ -6,6 +6,7 @@ resource "outscale_vm" "vm_cold_vault" {
   image_id           = var.rocky_10_ami
   vm_type            = var.casual_vm_type
   keypair_name_wo       = var.dmz_vpn_key
+  state           = "stopped"
   primary_nic  {
       nic_id = outscale_nic.cold_vault_nic.nic_id
       device_number = "0"
