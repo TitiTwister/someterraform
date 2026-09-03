@@ -2,7 +2,7 @@ resource "outscale_vm" "metallb_parking" {
   image_id        = var.rocky_10_ami
   vm_type         = var.small_vm_type
   keypair_name_wo = var.server_key
-  state           = "stopped"
+  #  state           = "stopped"
 
   primary_nic {
     nic_id        = outscale_nic.metallb_parking_nic.nic_id
@@ -12,6 +12,7 @@ resource "outscale_vm" "metallb_parking" {
   user_data = base64encode(<<-EOT
     #!/bin/bash
     hostnamectl set-hostname ${var.dns_project_name}-metallb-parking-1
+    sudo ip link set enp10s0 down
   EOT
   )
 
