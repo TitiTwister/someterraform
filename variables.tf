@@ -218,7 +218,7 @@ variable "postgresql_volume_iops" {
 variable "k8s_worker_volume_size" {
   description = "Size in GB for k8s worker data volumes"
   type        = number
-  default     = 200
+  default     = 300
 }
 
 variable "k8s_worker_volume_type" {
