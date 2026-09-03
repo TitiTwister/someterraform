@@ -17,7 +17,7 @@ resource "outscale_security_group_rule" "haproxy_http" {
     from_port_range = "80"
     to_port_range   = "80"
     ip_protocol     = "tcp"
-    ip_ranges       = var.allowed_cidr
+    ip_ranges       = concat(var.allowed_cidr, ["${var.tools_subnet}", "${var.k8s_subnet}"])
   }
 }
 
@@ -28,7 +28,7 @@ resource "outscale_security_group_rule" "haproxy_https" {
     from_port_range = "443"
     to_port_range   = "443"
     ip_protocol     = "tcp"
-    ip_ranges       = var.allowed_cidr
+    ip_ranges       = concat(var.allowed_cidr, ["${var.tools_subnet}", "${var.k8s_subnet}"])
   }
 }
 
@@ -39,7 +39,7 @@ resource "outscale_security_group_rule" "haproxy_sshssh" {
     from_port_range = "2222"
     to_port_range   = "2222"
     ip_protocol     = "tcp"
-    ip_ranges       = var.allowed_cidr
+    ip_ranges       = concat(var.allowed_cidr, ["${var.tools_subnet}", "${var.k8s_subnet}"])
   }
 }
 
